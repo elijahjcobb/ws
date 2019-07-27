@@ -1,0 +1,53 @@
+{
+	"name": "@elijahjcobb/ws",
+	"version": "0.0.1",
+	"description": "A websocket management package.",
+	"main": "dist/index",
+	"types": "dist/index",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepublishOnly": "npm run compile",
+		"compile": "npm run clean && /usr/local/bin/tsc -p tsconfig.json",
+		"watch": "tsc -w -p .",
+		"clean": "rm -rf dist"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/elijahjcobb/ws.git"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"websocket",
+		"socket",
+		"secure",
+		"easy",
+		"quick",
+		"advanced",
+		"web",
+		"api",
+		"server"
+	],
+	"author": "Elijah Cobb <elijah@elijahcobb.com> (https://elijahcobb.com/)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/elijahjcobb/ws/issues"
+	},
+	"homepage": "https://github.com/elijahjcobb/ws#readme",
+	"dependencies": {
+		"ws": "latest",
+		"typit": "latest",
+		"@elijahjcobb/collections": "latest",
+		"@elijahjcobb/encryption": "latest"
+	},
+	"devDependencies": {
+		"@types/node": "latest",
+		"typescript": "latest",
+		"tslint": "latest",
+		"@types/ws": "latest"
+	},
+	"files": [
+		"dist"
+	]
+}
