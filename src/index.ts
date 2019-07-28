@@ -143,6 +143,10 @@ class Server {
 
 			// MAKE SURE TO HAVE ERROR HANDLING HERE - have a ECSError like system for this.
 			// MAKE SURE TO HAVE ID system for request and response ids to make sure they don't duplicate...
+
+			// have system for sending message to socket by id with error if it doesnt exist
+			// have system for sending message to socket by id where error will not happen
+			// have system for sending messsage to socket object
 		});
 
 		ws.on("close", (code: number, reason: string) => {
