@@ -22,26 +22,21 @@
  *
  */
 
-// import { ECWSServer, ECWSSocket, ECWSResponse, ECWSCommand, ECWSRequest } from "./server/ECWSServer";
-// import {StandardType} from "typit";
-//
-// const server: ECWSServer = new ECWSServer({ port: 8080 });
-//
-// server.setAuthorizationHandler(async (socket: Socket): Promise<void> => {
-//
-// 	console.log(`New socket: ${socket.id}.`);
-//
-// });
-//
-// server.register("x", {foo: StandardType.STRING}, async(req: Request): Promise<Response> => {
-//
-// 	console.log("Received ECWSRequest");
-// 	console.log(req);
-//
-// 	return new Response({
-// 		foo: "BAR"
-// 	});
-//
-// });
-//
-// server.start();
+import { ECWSCommand } from "./ECWSCommand";
+import { ECWSIMessage, ECWSIMeta } from "./ECWSMessage";
+
+export class ECWSRequest {
+
+	public readonly payload: object;
+	public readonly cmd: string;
+	public readonly meta: ECWSIMeta;
+
+	public constructor(message: ECWSIMessage, command: ECWSCommand) {
+
+		this.cmd = command.cmd;
+		this.payload = message.payload;
+		this.meta = message.meta;
+
+	}
+
+}

@@ -22,26 +22,22 @@
  *
  */
 
-// import { ECWSServer, ECWSSocket, ECWSResponse, ECWSCommand, ECWSRequest } from "./server/ECWSServer";
-// import {StandardType} from "typit";
-//
-// const server: ECWSServer = new ECWSServer({ port: 8080 });
-//
-// server.setAuthorizationHandler(async (socket: Socket): Promise<void> => {
-//
-// 	console.log(`New socket: ${socket.id}.`);
-//
-// });
-//
-// server.register("x", {foo: StandardType.STRING}, async(req: Request): Promise<Response> => {
-//
-// 	console.log("Received ECWSRequest");
-// 	console.log(req);
-//
-// 	return new Response({
-// 		foo: "BAR"
-// 	});
-//
-// });
-//
-// server.start();
+import {ObjectType, ObjectTypeDefinition} from "typit";
+import {ECWSRequest} from "./ECWSRequest";
+import {ECWSResponse} from "./ECWSResponse";
+
+export class ECWSCommand {
+
+	public readonly cmd: string;
+	public readonly typeValidator: ObjectType;
+	public readonly handler: (req: ECWSRequest) => Promise<ECWSResponse>;
+
+	public constructor(cmd: string, types: ObjectTypeDefinition, handler: (req: ECWSRequest) => Promise<ECWSResponse>) {
+
+		this.cmd = cmd;
+		this.typeValidator = new ObjectType(types);
+		this.handler = handler;
+
+	}
+
+}

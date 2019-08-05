@@ -21,27 +21,29 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+import {ECWSRequest} from "./ECWSRequest";
 
-// import { ECWSServer, ECWSSocket, ECWSResponse, ECWSCommand, ECWSRequest } from "./server/ECWSServer";
-// import {StandardType} from "typit";
-//
-// const server: ECWSServer = new ECWSServer({ port: 8080 });
-//
-// server.setAuthorizationHandler(async (socket: Socket): Promise<void> => {
-//
-// 	console.log(`New socket: ${socket.id}.`);
-//
-// });
-//
-// server.register("x", {foo: StandardType.STRING}, async(req: Request): Promise<Response> => {
-//
-// 	console.log("Received ECWSRequest");
-// 	console.log(req);
-//
-// 	return new Response({
-// 		foo: "BAR"
-// 	});
-//
-// });
-//
-// server.start();
+export interface ECWSIMessage<P = object> {
+	cmd: string;
+	meta: ECWSIMeta;
+	payload: P;
+}
+
+export interface ECWSIMeta {
+	timestamp: number;
+	id: string;
+}
+
+export interface ECWSIError {
+	msg: string;
+	code: number;
+}
+
+export interface ECWSIMessageResponse<P = object> {
+	request: ECWSRequest;
+	response: {
+		meta: ECWSIMeta;
+		payload?: P;
+		error?: ECWSIError;
+	};
+}

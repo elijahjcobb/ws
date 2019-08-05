@@ -22,26 +22,54 @@
  *
  */
 
-// import { ECWSServer, ECWSSocket, ECWSResponse, ECWSCommand, ECWSRequest } from "./server/ECWSServer";
-// import {StandardType} from "typit";
-//
-// const server: ECWSServer = new ECWSServer({ port: 8080 });
-//
-// server.setAuthorizationHandler(async (socket: Socket): Promise<void> => {
-//
-// 	console.log(`New socket: ${socket.id}.`);
-//
-// });
-//
-// server.register("x", {foo: StandardType.STRING}, async(req: Request): Promise<Response> => {
-//
-// 	console.log("Received ECWSRequest");
-// 	console.log(req);
-//
-// 	return new Response({
-// 		foo: "BAR"
-// 	});
-//
-// });
-//
-// server.start();
+export interface IECWSError {
+	readonly status: number;
+	readonly message: string;
+}
+
+export class ECWSError implements IECWSError{
+
+	private shouldShow: boolean = false;
+	public status: number = 500;
+	public message: string = "Internal server error.";
+
+	public code(value: number): ECWSError {
+
+		this.status = value;
+		return this;
+
+	}
+
+	public msg(value: string): ECWSError {
+
+		this.message = value;
+		return this;
+
+	}
+
+	public passthrough(): ECWSError {
+
+		this.shouldShow = true;
+		return this;
+
+	}
+
+	public getJSON(): IECWSError {
+		return {
+			status: this.shouldShow ? this.status : 500,
+			message: this.shouldShow ? this.message : "Internal server error."
+		};
+	}
+
+	public print(): void {
+
+		console.error(`Error (${this.status}):\n${this.message}`);
+
+	}
+
+	public static init(): ECWSError {
+
+		return new ECWSError();
+
+	}
+}
