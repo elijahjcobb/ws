@@ -36,6 +36,9 @@
 	},
 	"homepage": "https://github.com/elijahjcobb/ws#readme",
 	"dependencies": {
+		"@ejc-tsds/dictionary": "latest",
+		"@ejc-tsds/arraylist": "latest",
+		"@ejc-tsds/set": "latest",
 		"ws": "latest",
 		"typit": "latest",
 		"@elijahjcobb/collections": "latest",
