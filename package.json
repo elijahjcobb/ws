@@ -38,6 +38,8 @@
 	"dependencies": {
 		"ws": "latest",
 		"typit": "latest",
+		"@ejc-tsds/dictionary": "latest",
+		"@ejc-tsds/arraylist": "latest",
 		"@elijahjcobb/collections": "latest",
 		"@elijahjcobb/encryption": "latest"
 	},

@@ -22,7 +22,7 @@
  *
  */
 
-// import { ECWSServer, ECWSSocket, ECWSResponse, ECWSCommand, ECWSRequest } from "./server/ECWSServer";
+// import { ECWSServer, ECWSSocketClient, ECWSResponse, ECWSCommand, ECWSRequest } from "./server/ECWSServer";
 // import {StandardType} from "typit";
 //
 // const server: ECWSServer = new ECWSServer({ port: 8080 });

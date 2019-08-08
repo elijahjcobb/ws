@@ -28,25 +28,25 @@ import { ECArrayList, ECMap} from "@elijahjcobb/collections";
 import {ECGenerator} from "@elijahjcobb/encryption";
 import { ObjectType, StandardType, ObjectTypeDefinition } from "typit";
 import {ECWSCommand} from "../shared/ECWSCommand";
-import {ECWSSocket} from "../shared/ECWSSocket";
-import {ECWSIMessage} from "../shared/ECWSMessage";
+import {ECWSSocketClient} from "../client/ECWSSocketClient";
+import {ECWSIMessage} from "../shared/ECWSInterfaces";
 import { ECWSRequest } from "../shared/ECWSRequest";
 import { ECWSResponse } from "../shared/ECWSResponse";
 
 export class ECWSServer {
 
 	private server: WebSocket.Server | undefined;
-	private sockets: ECMap<string, ECWSSocket>;
+	private sockets: ECMap<string, ECWSSocketClient>;
 	private commands: ECMap<string, ECWSCommand>;
 	private readonly options: WebSocket.ServerOptions | undefined;
-	private authorizationHandler: ((socket: ECWSSocket) => Promise<void>) | undefined;
+	private authorizationHandler: ((socket: ECWSSocketClient) => Promise<void>) | undefined;
 
 	public constructor(options?: WebSocket.ServerOptions) {
 
 		this.handleNewConnection = this.handleNewConnection.bind(this);
 
 		this.commands = new ECMap<string, ECWSCommand>();
-		this.sockets = new ECMap<string, ECWSSocket>();
+		this.sockets = new ECMap<string, ECWSSocketClient>();
 		this.options = options;
 
 	}
@@ -54,7 +54,7 @@ export class ECWSServer {
 	private handleNewConnection(ws: WebSocket, req: HTTP.IncomingMessage): void {
 
 		const id: string = this.generateNewSocketId();
-		const socket: ECWSSocket = new ECWSSocket(id, ws, req);
+		const socket: ECWSSocketClient = new ECWSSocketClient(id, ws, req);
 
 		ws.on("message", (message: WebSocket.Data) => {
 
@@ -153,13 +153,13 @@ export class ECWSServer {
 
 	}
 
-	public setAuthorizationHandler(handler: (socket: ECWSSocket) => Promise<void>): void {
+	public setAuthorizationHandler(handler: (socket: ECWSSocketClient) => Promise<void>): void {
 
 		this.authorizationHandler = handler;
 
 	}
 
-	public removeSocket(socket: ECWSSocket): void {
+	public removeSocket(socket: ECWSSocketClient): void {
 
 		this.sockets.remove(socket.id);
 
@@ -183,7 +183,7 @@ export class ECWSServer {
 
 	}
 
-	public getSocket(id: string): ECWSSocket | undefined {
+	public getSocket(id: string): ECWSSocketClient | undefined {
 
 		return this.sockets.get(id);
 

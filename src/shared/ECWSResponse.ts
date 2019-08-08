@@ -22,7 +22,7 @@
  *
  */
 
-import {ECWSIMeta} from "./ECWSMessage";
+import {ECWSIMeta} from "./ECWSInterfaces";
 import {ECWSRequest} from "./ECWSRequest";
 
 export class ECWSResponse {

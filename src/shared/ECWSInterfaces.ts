@@ -22,6 +22,8 @@
  *
  */
 import {ECWSRequest} from "./ECWSRequest";
+import {Dictionary} from "@ejc-tsds/dictionary";
+import {ECWSCommand} from "./ECWSCommand";
 
 export interface ECWSIMessage<P = object> {
 	cmd: string;
@@ -46,4 +48,12 @@ export interface ECWSIMessageResponse<P = object> {
 		payload?: P;
 		error?: ECWSIError;
 	};
+}
+
+export interface ECWSCommandable {
+	commands: Dictionary<string, ECWSCommand>;
+}
+
+export interface ECWSParser {
+	handleIncoming(data: Buffer): void;
 }
